@@ -8,6 +8,8 @@ namespace SalesWebMvc.Data
         public Contexto(DbContextOptions<Contexto> options) : base(options) { }
 
         public DbSet<Departament> Departament { get; set; }
+        public DbSet<Seller> Seller { get; set; }
+        public DbSet<SalesRecord> salesRecord { get; set; }
 
     }
 }
