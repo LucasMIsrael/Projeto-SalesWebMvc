@@ -21,8 +21,6 @@ namespace SalesWebMvc.Services
 
         public void Insert(Seller obj)
         {
-            obj.Departament = _context.Departament.First();
-
             var lastSellerId = _context.Seller.OrderByDescending(x => x.Id).FirstOrDefault();
 
             if (lastSellerId != null)
