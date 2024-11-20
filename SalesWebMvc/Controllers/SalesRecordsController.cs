@@ -12,11 +12,14 @@ namespace SalesWebMvc.Controllers
             _salesRecordService = salesRecordService;
         }
 
+        #region Index
         public IActionResult Index()
         {
             return View();
         }
+        #endregion
 
+        #region SimpleSearch
         public async Task<IActionResult> SimpleSearch(DateTime? minDate, DateTime? maxDate)
         {
             if (!minDate.HasValue)
@@ -34,7 +37,9 @@ namespace SalesWebMvc.Controllers
             var result = await _salesRecordService.FindByDateAsync(minDate, maxDate);
             return View(result);
         }
+        #endregion
 
+        #region GroupingSearch
         public async Task<IActionResult> GroupingSearch(DateTime? minDate, DateTime? maxDate)
         {
             if (!minDate.HasValue)
@@ -52,5 +57,6 @@ namespace SalesWebMvc.Controllers
             var result = await _salesRecordService.FindByDateGroupingAsync(minDate, maxDate);
             return View(result);
         }
+        #endregion
     }
 }

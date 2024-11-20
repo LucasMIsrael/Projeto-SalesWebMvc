@@ -19,13 +19,14 @@ namespace SalesWebMvc.Controllers
             _context = context;
         }
 
-        // GET: Departaments
+        #region Index
         public async Task<IActionResult> Index()
         {
             return View(await _context.Departament.ToListAsync());
         }
+        #endregion
 
-        // GET: Departaments/Details/5
+        #region Details
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -42,14 +43,16 @@ namespace SalesWebMvc.Controllers
 
             return View(departament);
         }
+        #endregion
 
-        // GET: Departaments/Create
+        #region Create
         public IActionResult Create()
         {
             return View();
         }
+        #endregion
 
-        // POST: Departaments/Create
+        #region Create/Post
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -64,8 +67,9 @@ namespace SalesWebMvc.Controllers
             }
             return View(departament);
         }
+        #endregion
 
-        // GET: Departaments/Edit/5
+        #region Edit
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -80,8 +84,9 @@ namespace SalesWebMvc.Controllers
             }
             return View(departament);
         }
+        #endregion
 
-        // POST: Departaments/Edit/5
+        #region Edit/Post
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -116,7 +121,13 @@ namespace SalesWebMvc.Controllers
             return View(departament);
         }
 
-        // GET: Departaments/Delete/5
+        private bool DepartamentExists(int id)
+        {
+            return _context.Departament.Any(e => e.Id == id);
+        }
+        #endregion
+
+        #region Delete
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -133,8 +144,9 @@ namespace SalesWebMvc.Controllers
 
             return View(departament);
         }
+        #endregion
 
-        // POST: Departaments/Delete/5
+        #region Delete/Post
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
@@ -144,10 +156,6 @@ namespace SalesWebMvc.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
-
-        private bool DepartamentExists(int id)
-        {
-            return _context.Departament.Any(e => e.Id == id);
-        }
+        #endregion        
     }
 }

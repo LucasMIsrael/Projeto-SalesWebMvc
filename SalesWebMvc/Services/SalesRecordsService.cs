@@ -13,6 +13,7 @@ namespace SalesWebMvc.Services
             _context = context;
         }
 
+        #region FindByDateAsync
         public async Task<List<SalesRecord>> FindByDateAsync(DateTime? minDate, DateTime? maxDate)
         {
             var result = from obj in _context.SalesRecord select obj;
@@ -35,7 +36,9 @@ namespace SalesWebMvc.Services
                         .OrderByDescending(x => x.Date)
                         .ToListAsync();
         }
+        #endregion
 
+        #region FindByDateGroupingAsync
         public async Task<List<IGrouping<Departament, SalesRecord>>> FindByDateGroupingAsync(DateTime? minDate, DateTime? maxDate)
         {
             var query = _context.SalesRecord.AsQueryable();
@@ -64,5 +67,6 @@ namespace SalesWebMvc.Services
 
             return groupedResult;
         }
+        #endregion
     }
 }

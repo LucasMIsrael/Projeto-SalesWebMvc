@@ -13,9 +13,11 @@ namespace SalesWebMvc.Services
             _context = context;
         }
 
+        #region FindAllAsync
         public async Task<List<Departament>> FindAllAsync()
         {
             return await _context.Departament.OrderBy(x => x.Name).ToListAsync();
         }
+        #endregion
     }
 }

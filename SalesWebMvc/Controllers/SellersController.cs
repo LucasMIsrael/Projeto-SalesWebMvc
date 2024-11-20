@@ -19,20 +19,25 @@ namespace SalesWebMvc.Controllers
             _departmentService = departmentService;
         }
 
+        #region Index
         public async Task<IActionResult> Index()
         {
             var list = await _sellerService.FindAllAsync();
 
             return View(list);
         }
+        #endregion
 
+        #region Create
         public async Task<IActionResult> Create()
         {
             var departments = await _departmentService.FindAllAsync();
             var viewModel = new SellerFormViewModel { Departments = departments };
             return View(viewModel);
         }
+        #endregion
 
+        #region Create/Post
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Seller seller)
@@ -47,7 +52,9 @@ namespace SalesWebMvc.Controllers
             await _sellerService.InsertAsync(seller);
             return RedirectToAction(nameof(Index));
         }
+        #endregion
 
+        #region Delete
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -63,7 +70,9 @@ namespace SalesWebMvc.Controllers
 
             return View(obj);
         }
+        #endregion
 
+        #region Delete/Post
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete(int id)
@@ -78,7 +87,9 @@ namespace SalesWebMvc.Controllers
                 return RedirectToAction(nameof(Error), new { message = ex.Message });
             }            
         }
+        #endregion
 
+        #region Details
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -94,7 +105,9 @@ namespace SalesWebMvc.Controllers
 
             return View(obj);
         }
+        #endregion
 
+        #region Edit
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -110,7 +123,9 @@ namespace SalesWebMvc.Controllers
 
             return View(viewModel);
         }
+        #endregion
 
+        #region Edit/Post
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit (int id, Seller seller)
@@ -135,7 +150,9 @@ namespace SalesWebMvc.Controllers
                 return RedirectToAction(nameof(Error), new { message = ex.Message });
             }
         }
+        #endregion
 
+        #region Error
         public IActionResult Error(string message)
         {
             var viewModel = new ErrorViewModel
@@ -146,5 +163,6 @@ namespace SalesWebMvc.Controllers
 
             return View(viewModel);
         }
+        #endregion
     }
 }

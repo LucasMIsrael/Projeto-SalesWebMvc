@@ -15,11 +15,14 @@ namespace SalesWebMvc.Services
             _context = context;
         }
 
+        #region FindAllAsync
         public async Task<List<Seller>> FindAllAsync()
         {
             return await _context.Seller.ToListAsync();
         }
+        #endregion
 
+        #region InsertAsync
         public async Task InsertAsync(Seller obj)
         {
             var lastSellerId = _context.Seller.OrderByDescending(x => x.Id).FirstOrDefault();
@@ -32,12 +35,16 @@ namespace SalesWebMvc.Services
             _context.Add(obj);
             await _context.SaveChangesAsync();
         }
+        #endregion
 
+        #region FindByIdAsync
         public async Task<Seller> FindByIdAsync(int id)
         {
             return await _context.Seller.Include(x => x.Departament).FirstOrDefaultAsync(x => x.Id == id);
         }
+        #endregion
 
+        #region RemoveAsync
         public async Task RemoveAsync(int id)
         {
             try
@@ -51,7 +58,9 @@ namespace SalesWebMvc.Services
                 throw new IntegrityExceptions(ex.Message);
             }            
         }
+        #endregion
 
+        #region UpdateAsync
         public async Task UpdateAsync(Seller obj)
         {
             bool hasAny = await _context.Seller.AnyAsync(x => x.Id == obj.Id);
@@ -71,5 +80,6 @@ namespace SalesWebMvc.Services
                 throw new DbConcurrencyException(ex.Message);
             }            
         }
+        #endregion
     }
 }
